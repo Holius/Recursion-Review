@@ -4,40 +4,20 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className) {
-
+var getElementsByClassName = function(className, array = [], index = 0) {
+    
   var all = document.all;
-  var length = all.length;
-  console.log(arguments[1], arguments[2])
+  var classes = all[index].className.split(' ');
 
-  if (arguments[1] === undefined) {
-    arguments[1] = 0;
+  if (index === all.length - 1) {
+    if (classes.indexOf(className) !== -1) {
+    array.push(all[index]) };
+    return array;
+  }     
+
+ if (classes.indexOf(className) !== -1) {
+    array.push(all[index])
   }
+  return getElementsByClassName(className, array, index + 1);
 
-  if (arguments[2] === undefined) {
-    arguments[2] = [];
-    }               
-  console.log(arguments[1], arguments[2])
-
-
-  if (arguments[1] === length - 1) {
-    for (let x = 0; x < all[arguments[1]].classList.length; x++) {
-        if (all[arguments[1]].classList[x] === className) {
-          arguments[2].push(all[arguments[1]]);  
-  
-      }
-      return arguments[2];
-    } 
-  }
-
-  else {
-    for (let x = 0; x < all[arguments[1]].classList.length; x++) {
-      if (all[arguments[1]].classList[x] === className) {
-        arguments[2].push(all[arguments[1]]);  
-      }
-    return getElementsByClassName(className, arguments[1] + 1, arguments[2])
-    } 
-  } 
-  // base case -- last element of ALL; 
-  // return RESULT somewhere   
 };
